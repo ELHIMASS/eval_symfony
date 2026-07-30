@@ -15,4 +15,9 @@ class ContactRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Contact::class);
     }
+
+    public function findAllOrderedByDate(): array
+    {
+        return $this->findBy([], ['createdAt' => 'DESC']);
+    }
 }

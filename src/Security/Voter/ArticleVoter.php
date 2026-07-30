@@ -41,10 +41,14 @@ final class ArticleVoter extends Voter
 
         $diff = $subject->getCreatedAt()->diff(new DateTimeImmutable());
 
-        if ($this->accessDecisionManager->decide($token, ['ROLE_ADMIN']) && $diff->days < 90) {
+        if ($diff->days >= 90) {
+            return false;
+        }
+
+        if ($this->accessDecisionManager->decide($token, ['ROLE_ADMIN'])) {
             return true;
         }
 
-        return false;
+        return $subject->getAuthor() === $user;
     }
 }
