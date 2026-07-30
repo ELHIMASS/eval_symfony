@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Repository\ContactRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,6 +60,16 @@ final class AdminController extends AbstractController
 
         return $this->render('article/edit.html.twig', [
             'form' => $form
+        ]);
+    }
+
+    #[Route('/contacts', name: 'admin_contacts')]
+    public function contacts(ContactRepository $contactRepository): Response
+    {
+        $contacts = $contactRepository->findAllOrderedByDate();
+
+        return $this->render('admin/contacts.html.twig', [
+            'contacts' => $contacts,
         ]);
     }
 }
