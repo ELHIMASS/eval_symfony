@@ -44,6 +44,8 @@ class AppFixtures extends Fixture
         $regularUser = new User();
         $regularUser
             ->setEmail('regular@sf-news.com')
+            ->setName('Dupont')
+            ->setFirstname('Jean')
             ->setPassword($this->hasher->hashPassword($regularUser, 'regular'));
 
         $manager->persist($regularUser);
@@ -51,6 +53,8 @@ class AppFixtures extends Fixture
         $adminUser = new User();
         $adminUser
             ->setEmail('admin@sf-news.com')
+            ->setName('Admin')
+            ->setFirstname('Super')
             ->setPassword($this->hasher->hashPassword($adminUser, 'admin'))
             ->setRoles(['ROLE_ADMIN']);
 
